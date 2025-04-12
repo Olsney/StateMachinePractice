@@ -17,26 +17,28 @@ namespace CodeBase.Hero
         private readonly int _isAttacking = Animator.StringToHash("IsAttacking");
         private readonly int _speed = Animator.StringToHash("Speed");
 
+        private Animator _animator;
+        private CharacterController _characterController;
 
-        // private readonly int _idle = Animator.StringToHash("Idle");
-        // private readonly int _isJumping = Animator.StringToHash("Jumping");
-        // private readonly int _isAttacking = Animator.StringToHash("Attacking");
-        // private readonly int _isMoving = Animator.StringToHash("Moving");
-        // private readonly int _speed = Animator.StringToHash("Speed");
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+            _characterController = GetComponent<CharacterController>();
+        }
+
+        private void Update()
+        {
+            _animator.SetFloat(_speed, _characterController.velocity.magnitude, 0.1f, Time.deltaTime);
+        }
 
         public void PlayJump() => 
             _animator.SetBool(_isJumping, true);
+
         public void StopJump() => 
             _animator.SetBool(_isJumping, false);
 
         public void PlayAttack() => 
             _animator.SetTrigger(_isAttacking);
-        
-        // public void PlayAttack() => 
-        //     _animator.SetBool(_isAttacking, true);
-        //
-        // public void StopPlayingAttack() => 
-        //     _animator.SetBool(_isAttacking, false);
 
         public bool IsAttackAnimationPlaying()
         {
@@ -51,35 +53,11 @@ namespace CodeBase.Hero
 
         public void PlayMove() => 
             _animator.SetBool(_isWalking, true);
-        
-        // public void PlayJump() => _animator.SetBool(_isJumping, true);
-        // public void PlayAttack() => _animator.SetBool(_isAttacking, true);
-        // public void PlayMove() => _animator.SetBool(_isMoving, true);
 
         public void Move(float speed)
         {
             _animator.SetBool(_isWalking, true);
             _animator.SetFloat(_speed, speed);
-        }
-        
-        // public void Move(float speed)
-        // {
-        //     _animator.SetBool(_isMoving, true);
-        //     _animator.SetFloat(_speed, speed);
-        // }
-        
-        private Animator _animator;
-        private CharacterController _characterController;
-
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-            _characterController = GetComponent<CharacterController>();
-        }
-
-        private void Update()
-        {
-            _animator.SetFloat(_speed, _characterController.velocity.magnitude, 0.1f, Time.deltaTime);
         }
     }
 }

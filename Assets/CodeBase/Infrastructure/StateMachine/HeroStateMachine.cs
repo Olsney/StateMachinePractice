@@ -17,7 +17,6 @@ namespace CodeBase.Infrastructure.StateMachine
         private IExitable _activeState;
         private IExitable _defaultState;
         private Dictionary<Type, IExitable> _states;
-        // private IState _lastState;
 
         public HeroStateMachine(IInputService inputService, HeroMover heroMover, HeroAnimator heroAnimator,
             HeroAttack heroAttack)
@@ -40,7 +39,6 @@ namespace CodeBase.Infrastructure.StateMachine
             
             if (_heroAnimator == null)
                 Debug.Log("Animator null");
-            // _lastState = lastState;
         }
 
         public void Enter<TState>() where TState : class, IExitable
@@ -59,9 +57,7 @@ namespace CodeBase.Infrastructure.StateMachine
         public void Update()
         {
             // if (_activeState.CanUpdate)
-            // {
             //     _activeState?.Update();
-            // }
             
             _activeState?.Update();
         }

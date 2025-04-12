@@ -6,7 +6,6 @@ namespace CodeBase.Hero
     {
         public void Attack()
         {
-            
         }
     }
 }
